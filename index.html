@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Member Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    
+    <div id="toast-container" class="toast-container"></div>
+
+    <div id="login-page" class="login-page">
+        <header class="gov-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="shield-icon"></div>
+                    <div>
+                        <h1>ANNA INDUSTRIAL PARK</h1>
+                        <p class="header-subtitle">THE ARIGNAR ANNA CO-OPERATIVE INDUSTRIAL ESTATE LTD., IND NO:1807</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="login-container">
+            <div class="login-card">
+                <div class="card-header">
+                    <h2 class="card-title">Login Portal</h2>
+                    <p class="card-description">
+                        Please select your role and enter credentials to access the system
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter your username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" />
+                    </div>
+
+                    <div class="login-buttons">
+                        <button id="user-login" class="btn-primary" disabled>
+                            Login
+                        </button>
+                        <button id="admin-login" class="btn-secondary" disabled>
+                        </button>
+                    </div>
+
+                    <div class="demo-info">
+                        <p>Use your assigned username and password</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-page" class="dashboard-page" style="display: none;">
+        <header id="dashboard-header" class="dashboard-header">
+            <div class="container">
+                <div class="header-content">
+                    <div>
+                        <h1>ANNA INDUSTRIAL PARK</h1>
+                        <p id="user-role-display" class="role-display"></p>
+                    </div>
+
+                    <div class="header-buttons">
+                        <button id="members-tab" class="tab-button active">Members</button>
+                        <button id="requests-tab" class="tab-button" style="display: none;">
+                            <span id="requests-count">Approvals (0)</span>
+                        </button>
+                        <button onclick="window.location.href='export.php'" style="background:#007BFF; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">
+                            Download Members
+                        </button>
+                    </div>
+                    <button id="logout-btn" class="btn-outline">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main-content">
+            <div id="members-view">
+                <div class="search-section">
+                    <div class="search-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Search Members
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="search-form">
+                                <div class="form-group">
+                                    <label>Search By</label>
+                                    <select id="search-by">
+                                        <option value="memberNo">Member Number</option>
+                                        <option value="siteNo">Site Number</option>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-2">
+                                    <label>Search Term</label>
+                                    <input type="text" id="search-term" placeholder="Enter search term..." />
+                                </div>
+                                <button id="search-btn" class="btn-primary">
+                                    Search
+                                </button>
+                                <button id="clear-search-btn" class="btn-outline">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="add-member-btn" class="btn-secondary large" style="display: none;">
+                        Add New Member
+                    </button>
+                </div>
+                
+                <div class="financial-summary-card">
+                    <h3>Overall Financial Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item total-commitment">
+                            <p>Total Commitment</p>
+                            <h4 id="summary-commitment">Loading...</h4>
+                        </div>
+                        <div class="summary-item total-paid">
+                            <p>Total Paid</p>
+                            <h4 id="summary-paid">Loading...</h4>
+                        </div>
+                        <div class="summary-item total-remaining">
+                            <p>Total Remaining</p>
+                            <h4 id="summary-remaining">Loading...</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="members-table-card">
+                    <div class="card-header">
+                        <h3 id="members-count" class="card-title">Member Dataset (0 records)</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table id="members-table">
+                                <thead>
+                                    <tr>
+                                        <th>Member No</th>
+                                        <th>Member Name</th>
+                                        <th>Member Type</th>
+                                        <th>Site No</th>
+                                        <th>Contact Details</th>
+                                        <th>Total Amount</th>
+                                        <th>Paid Amount</th>
+                                        <th>Remaining</th>
+                                        <th>Payment Mode</th>
+                                        <th>Actions</th> 
+                                    </tr>
+                                </thead>
+                                <tbody id="members-tbody">
+                                        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="requests-view" style="display: none;">
+                <div class="requests-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span id="requests-title">Update Requests (0)</span>
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="requests-list">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="member-details-modal" class="modal" style="display: none;">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <button class="back-btn">
+                    Back to List
+                </button>
+                <div>
+                    <h2 id="member-details-title">Member Details</h2>
+                    <p id="member-details-subtitle"></p>
+                </div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body" id="member-details-content">
+                </div>
+        </div>
+    </div>
+
+    <div id="site-details-modal" class="modal" style="display: none;">
+    <div class="modal-content large">
+        <div class="modal-header">
+            <button class="back-btn">
+                Back to List
+            </button>
+            <div>
+                <h2 id="site-details-title">Site Details</h2>
+                <p id="site-details-subtitle"></p>
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body" id="site-details-content">
+            </div>
+    </div>
+</div>
+
+<div id="add-member-modal" class="modal" style="display: none;">
+    <div class="modal-content large">
+        <div class="modal-header">
+            <div>
+                <h2>Add New Member</h2>
+                <p>Enter member information to add a new member to the system.</p>
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form name="add-member-form" id="add-member-form">
+                <h3 style="margin-top: 0; margin-bottom: 1rem; color: var(--gov-primary);">Basic & Personal Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-memberNo">Member Number *</label>
+                        <input type="text"name="new-memberNo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-memberName">Member Name *</label>
+                        <input type="text" name="new-memberName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-memberType">Member Type *</label>
+                        <select name="new-memberType" required>
+                            <option value="">Select member type</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Institution">Institution</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-memberClass">Member Class</label>
+                        <input type="text" name="new-memberClass" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-admissionDate">Admission Date</label>
+                        <input type="date" name="new-admissionDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-siteNo">Site Number *</label>
+                        <input type="text" name="new-siteNo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-contactNumber1">Contact Number 1 *</label>
+                        <input type="text" name="new-contactNumber1" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-contactNumber2">Contact Number 2</label>
+                        <input type="text" name="new-contactNumber2" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-lanlineNumber">Lanline Number</label>
+                        <input type="text" name="new-lanlineNumber" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-email">E-Mail</label>
+                        <input type="text" name="new-email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-gender">Gender</label>
+                        <select name="new-gender">
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-caste">Caste</label>
+                        <select name="new-caste">
+                            <option value="">Select caste</option>
+                            <option value="General">General</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="BCM">BCM</option>
+                            <option value="MBC">MBC</option>
+                            <option value="BCC">BCC</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-aadhaar">Aadhaar Number</label>
+                        <input type="text" name="new-aadhaar" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-familyCard">Family Card</label>
+                        <input type="text" name="new-familyCard" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-voterID">Voter ID</label>
+                        <input type="text" name="new-voterID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-pan">PAN Number</label>
+                        <input type="text" name="new-pan" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-signature">Signature</label>
+                        <select name="new-signature">
+                            <option value="">Select signature status </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="new-address">Address</label>
+                        <label for="new-address-door">Do.No/Building Name</label>
+                        <input type="text" name="new-address-door" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-address-street">Street</label>
+                        <input type="text" name="new-address-street" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-address-city">City</label>
+                        <input type="text" name="new-address-city" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-address-pincode">Pin Code</label>
+                        <input type="text" name="new-address-pincode" />
+                    </div>
+                    
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--gov-primary);">Site Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-areaInSqft">Area in Square Feet</label>
+                        <input type="number" name="new-areaInSqft" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-areaInCents">Area in Cents</label>
+                        <input type="number" name="new-areaInCents" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-linearNorthToSouthWest">Linear: North to South (West Side)</label>
+                        <input type="number" name="new-linearNorthToSouthWest" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-linearEastToWestNorth">Linear: East to West (North Side)</label>
+                        <input type="number" name="new-linearEastToWestNorth" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-linearEastToWestSouth">Linear: East to West (South Side)</label>
+                        <input type="number" name="new-linearEastToWestSouth" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-linearNorthToSouthEast">Linear: North to South (East Side)</label>
+                        <input type="number" name="new-linearNorthToSouthEast" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-boundaryEast">Boundary: East</label>
+                        <input type="text" name="new-boundaryEast" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-boundaryWest">Boundary: West</label>
+                        <input type="text" name="new-boundaryWest" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-boundaryNorth">Boundary: North</label>
+                        <input type="text" name="new-boundaryNorth" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-boundarySouth">Boundary: South</label>
+                        <input type="text" name="new-boundarySouth" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-pattaNo">Patta Number</label>
+                        <input type="text" name="new-pattaNo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-pattaType">Patta Type</label>
+                        <select name="new-pattaType">
+                            <option value="Individual">Individual</option>
+                            <option value="Combined">Combined</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-village">Village</label>
+                        <input type="text" name="new-village" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-documentNo">Document Number</label>
+                        <input type="text" name="new-documentNo" />
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--gov-primary);">Financial & Share Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-shareNo">Share Number</label>
+                        <input type="text" name="new-shareNo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-noOfShare">Number of Shares</label>
+                        <input type="number" name="new-noOfShare" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-admissionFeePaid">Admission Fee Paid</label>
+                        <select name="new-admissionFeePaid">
+                            <option value="">Select admission Fee Paid status </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-totalAmount">Total Amount</label>
+                        <input type="number" name="new-totalAmount" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-paidAmount">Paid Amount</label>
+                        <input type="number" name="new-paidAmount" step="0.01" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-modeOfPayment">Payment Mode</label>
+                        <input type="text" name="new-modeOfPayment" />
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--gov-primary);">Nominee Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-nomineeName">Nominee Name</label>
+                        <input type="text" name="new-nomineeName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="new-relationship">Relationship</label>
+                        <input type="text" name="new-relationship" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline cancel-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                        Cancel
+                    </button>
+                    <button type="submit" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                        Add Member
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <div id="update-request-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="update-request-title">Request Update</h2>
+                </div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="update-request-form">
+                    <div class="form-group">
+                        <label for="update-field">Field to Update</label>
+                        <select id="update-field" required>
+                            <option value="">Select field to update</option>
+                        </select>
+                    </div>
+                    <div id="current-value-display" style="display: none;" class="current-value">
+                        <p class="label">Current Value:</p>
+                        <p id="current-value-text"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-new-value">New Value</label>
+                        <input type="text" id="update-new-value" placeholder="Enter new value" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="update-reason">Reason for Update</label>
+                        <textarea id="update-reason" rows="4" placeholder="Please provide a detailed reason for this update request..." required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-primary">
+                            Send Update Request
+                        </button>
+                        <button type="button" class="btn-outline cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="financial-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="financial-title">Financial Details</h2>
+                </div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body" id="financial-content">
+                </div>
+        </div>
+    </div>
+<div id="member-actions"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

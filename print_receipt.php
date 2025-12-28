@@ -16,29 +16,36 @@ if (!$member) {
 
 // Initialize receipt number
 $receiptNo = null;
+$a1 = (float)($_POST['a1'] ?? 0);
+$a2 = (float)($_POST['a2'] ?? 0);
+$a3 = (float)($_POST['a3'] ?? 0);
+
+$total = $a1 + $a2 + $a3;
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_receipt'])) {
 
     try {
         $stmt = $pdo->prepare("
-            INSERT INTO receipts
-            (memberNo, siteNo, particulars1, amount1,
-             particulars2, amount2, particulars3, amount3, receipt_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+    INSERT INTO receipts
+    (memberNo, siteNo,
+     particulars1, amount1,
+     particulars2, amount2,
+     particulars3, amount3,
+     total_amount, receipt_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+");
 
-        $stmt->execute([
-            (int)$_POST['memberNo'],
-            $_POST['siteNo'],
-            $_POST['p1'],
-            (float)$_POST['a1'],
-            $_POST['p2'] ?: null,
-            $_POST['a2'] !== '' ? (float)$_POST['a2'] : null,
-            $_POST['p3'] ?: null,
-            $_POST['a3'] !== '' ? (float)$_POST['a3'] : null,
-            date('Y-m-d')
-        ]);
+$stmt->execute([
+    (int)$_POST['memberNo'],
+    $_POST['siteNo'],
+    $_POST['p1'], $a1,
+    $_POST['p2'] ?: null, $a2 ?: null,
+    $_POST['p3'] ?: null, $a3 ?: null,
+    $total,
+    date('Y-m-d')
+]);
+
 
         // Get auto-incremented receipt number
         $receiptNo = $pdo->lastInsertId();
@@ -67,11 +74,18 @@ th, td { padding: 8px; }
     button, input { border: none; }
     button { display: none; }
 }
+.back-btn {
+    margin-bottom: 15px;
+}
+
 </style>
 </head>
 <body>
 
 <form method="POST">
+<a href="index.html" class="back-btn">
+    <button type="button">⬅ Back to Home</button>
+</a>
 
 <button type="submit">Save & Print</button>
 
@@ -113,8 +127,17 @@ th, td { padding: 8px; }
             <td><input name="p3" value="<?= htmlspecialchars($_POST['p3'] ?? '') ?>"></td>
             <td><input type="text" name="a3" inputmode="decimal" pattern="[0-9]*\.?[0-9]+" value="<?= htmlspecialchars($_POST['a3'] ?? '') ?>"></td>
         </tr>
-    </table>
+        <table style="margin-top:10px;">
+    <tr>
+        <th style="text-align:right;">TOTAL</th>
+        <th style="text-align:right;">
+            ₹ <?= number_format($total ?? 0, 2) ?>
+        </th>
+    </tr>
+</table>
 
+    </table>
+    <p>Received by Adjustment Rupees</p><input name="p3" value="<?= htmlspecialchars($_POST['p3'] ?? '') ?>">
     <p>* Cheques are subject to realisation</p>
 
     <div style="text-align:right;margin-top:40px;">

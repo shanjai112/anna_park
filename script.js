@@ -842,7 +842,6 @@ let printhtml = `
     ];
     const documentInfo = [
         { label: 'Aadhaar', value: member.aadhaarNumber },
-        { label: 'Family Card', value: member.familyCard },
         { label: 'Voter ID', value: member.voterId },
         { label: 'PAN', value: member.panNumber }
     ];
@@ -1014,7 +1013,6 @@ window.showUpdateModal = function(memberNo) {
     { value: 'gender', label: 'Gender', current: member.gender || 'N/A', required: false },
     { value: 'caste', label: 'Caste', current: member.caste || 'N/A', required: false },
     { value: 'aadhaarNumber', label: 'Aadhaar Number', current: member.aadhaarNumber || 'N/A', required: true },
-    { value: 'familyCard', label: 'Family Card', current: member.familyCard || 'N/A', required: false },
     { value: 'voterId', label: 'Voter ID', current: member.voterId || 'N/A', required: false },
     { value: 'panNumber', label: 'PAN Number', current: member.panNumber || 'N/A', required: false },
     { value: 'nomineeName', label: 'Nominee Name', current: member.nomineeName || 'N/A', required: false },

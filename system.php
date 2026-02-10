@@ -239,7 +239,6 @@ switch ($action) {
         $gender              = $_POST['new-gender'] ?? null;
         $caste               = $_POST['new-caste'] ?? null;
         $aadhaarNumber       = $_POST['new-aadhaar'] ?? null;
-        $familyCard          = $_POST['new-familyCard'] ?? null;
         $voterId             = $_POST['new-voterID'] ?? null;
         $panNumber           = $_POST['new-pan'] ?? null;
         
@@ -279,20 +278,21 @@ switch ($action) {
         }
 
         // 3. EXECUTE INSERT
-        $stmt = $conn->prepare("INSERT INTO members 
-    (memberNo, memberName, memberType, memberClass, admissionDate, siteNo, address, contactNumber1, contactNumber2, lanlineNumber, email, shareNo, noOfShares, ShareCapitalAmount, gender, caste, aadhaarNumber, familyCard, voterId, panNumber, admissionFeePaid, nomineeName, relationship, totalAmount, paidAmount, remainingAmount, modeOfPayment, signature, areaInSqft, areaInCents, linearNorthToSouthWest, linearEastToWestNorth, linearEastToWestSouth, linearNorthToSouthEast, boundaryEast, boundaryWest, boundaryNorth, boundarySouth, pattaNo, pattaType, village, documentNo)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO members 
+    (memberNo, memberName, memberType, memberClass, admissionDate, siteNo, address, contactNumber1, contactNumber2, lanlineNumber, email, shareNo, noOfShares, ShareCapitalAmount, gender, caste, aadhaarNumber, voterId, panNumber, admissionFeePaid, nomineeName, relationship, totalAmount, paidAmount, remainingAmount, modeOfPayment, signature, areaInSqft, areaInCents, linearNorthToSouthWest, linearEastToWestNorth, linearEastToWestSouth, linearNorthToSouthEast, boundaryEast, boundaryWest, boundaryNorth, boundarySouth, pattaNo, pattaType, village, documentNo)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-$type_string = "issssssssssidssssssssssddsssdddddsssssssss";
+// There are exactly 41 columns listed above. 
+// Your type string must have 41 characters, and bind_param must have 41 variables.
+$type_string = "issssssssssidssssssssssdddddsssssssssssss"; 
 
 $stmt->bind_param(
     $type_string,
     $memberNo, $memberName, $memberType, $memberClass, $admissionDate,
     $siteNo, $address, $contactNumber1, $contactNumber2, $lanlineNumber,
     $email, $shareNo, $noOfShares, $ShareCapitalAmount,
-    $gender, $caste, $aadhaarNumber, $familyCard, $voterId, $panNumber,
-    $admissionFeePaid,
-    $nomineeName, $relationship,
+    $gender, $caste, $aadhaarNumber, $voterId, $panNumber,
+    $admissionFeePaid, $nomineeName, $relationship,
     $totalAmount, $paidAmount, $remainingAmount,
     $modeOfPayment, $signature,
     $areaInSqft, $areaInCents, $linearNorthToSouthWest, $linearEastToWestNorth,
@@ -581,7 +581,7 @@ function archiveAndDeleteMember($conn, $memberNo, $deletedBy) {
     $columns = [
         'memberNo','memberName','memberType','memberClass','admissionDate','siteNo','address',
         'contactNumber1','contactNumber2','lanlineNumber','email','shareNo','noOfShares',
-        'ShareCapitalAmount','gender','caste','aadhaarNumber','familyCard','voterId','panNumber',
+        'ShareCapitalAmount','gender','caste','aadhaarNumber','voterId','panNumber',
         'admissionFeePaid','nomineeName','relationship','totalAmount','paidAmount','remainingAmount',
         'modeOfPayment','signature','areaInSqft','areaInCents','linearNorthToSouthWest',
         'linearEastToWestNorth','linearEastToWestSouth','linearNorthToSouthEast',

@@ -868,10 +868,10 @@ let printhtml = `
             ${createInfoCard('Site Summary', siteInfo)}
             ${createInfoCard('Document Information', documentInfo)}
             ${createInfoCard('Share & Admission Details', financialInfo)}
-            ${createInfoCard('Nominee & Payment Status', [
+            ${createInfoCard('Nominee & Status Details', [
                 { label: 'Nominee Name', value: member.nomineeName },
                 { label: 'Relationship', value: member.relationship },
-                { label: 'Admission Fee Paid', value: member.admissionFeePaid },
+                { label: 'Current Status', value: member.admissionFeePaid }, // Changed label
                 { label: 'Mode of Payment', value: member.modeOfPayment }
             ])}
         </div>
@@ -1020,8 +1020,7 @@ window.showUpdateModal = function(memberNo) {
     { value: 'totalAmount', label: 'Total Amount', current: member.totalAmount || '0.00', required: false },
     { value: 'paidAmount', label: 'Paid Amount', current: member.paidAmount || '0.00', required: false },
     { value: 'modeOfPayment', label: 'Mode of Payment', current: member.modeOfPayment || 'N/A', required: false },
-    { value: 'admissionFeePaid', label: 'Admission Fee Paid', current: member.admissionFeePaid || 'N/A', required: false },
-    { value: 'signature', label: 'Signature', current: member.signature || 'N/A', required: false },
+{ value: 'admissionFeePaid', label: 'Member Status', current: member.admissionFeePaid || 'N/A', required: false },    { value: 'signature', label: 'Signature', current: member.signature || 'N/A', required: false },
     // NEW SITE FIELDS ADDED
     { value: 'areaInSqft', label: 'Area in Sqft', current: member.areaInSqft || 'N/A', required: false },
     { value: 'areaInCents', label: 'Area in Cents', current: member.areaInCents || 'N/A', required: false },

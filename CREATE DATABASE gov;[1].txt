@@ -88,6 +88,9 @@ CREATE TABLE receipts (
 ALTER TABLE receipts
 ADD total_amount DECIMAL(10,2) NOT NULL DEFAULT 0;
 
+ALTER TABLE members DROP COLUMN familyCard;
+ALTER TABLE deleted_members DROP COLUMN familyCard;
+
 
 LOAD DATA INFILE 'C:/xampp/mysql/data/processed.csv'
 INTO TABLE members

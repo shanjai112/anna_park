@@ -284,7 +284,7 @@ $stmt = $conn->prepare("INSERT INTO members
 
 // There are exactly 41 columns listed above. 
 // Your type string must have 41 characters, and bind_param must have 41 variables.
-$type_string = "issssssssssidssssssssssdddddsssssssssssss"; 
+$type_string = "issssssssssidssssssssssddsddsssssssssssss"; 
 
 $stmt->bind_param(
     $type_string,

@@ -1,0 +1,192 @@
+CREATE DATABASE IF NOT EXISTS gov;
+USE gov;
+
+-- 1. MEMBERS TABLE (Primary Table - 40 Columns)
+-- Synchronized with system.php addMember and getMembers logic
+CREATE TABLE members (
+    memberNo INT PRIMARY KEY,
+    memberName VARCHAR(255) NOT NULL,
+    memberType VARCHAR(50) NOT NULL,
+    memberClass VARCHAR(50),
+    admissionDate DATE,
+    siteNo VARCHAR(50),
+    address TEXT,
+    contactNumber1 VARCHAR(100),
+    contactNumber2 VARCHAR(100),
+    lanlineNumber VARCHAR(100),
+    email VARCHAR(150),
+    shareNo VARCHAR(50),
+    noOfShares INT,
+    ShareCapitalAmount DECIMAL(12,2),
+    gender VARCHAR(20),
+    caste VARCHAR(50),
+    aadhaarNumber VARCHAR(20),
+    voterId VARCHAR(50),
+    panNumber VARCHAR(20),
+    admissionFeePaid VARCHAR(10), -- Stores 'Active' or 'Non-Active'
+    nomineeName VARCHAR(255),
+    relationship VARCHAR(100),
+    totalAmount DECIMAL(12,2),
+    paidAmount DECIMAL(12,2),
+    remainingAmount VARCHAR(50),
+    modeOfPayment VARCHAR(50),
+    signature VARCHAR(225),
+    areaInSqft DECIMAL(12,2),
+    areaInCents DECIMAL(12,2),
+    
+    -- Updated Company & Employment Columns
+    -- Mapped from the former linear measurement and boundary fields
+    nameOfCompany VARCHAR(255),    -- Renamed from linearNorthToSouthWest
+    powerAvailable VARCHAR(100),   -- Renamed from linearEastToWestNorth
+    employeesMen INT,              -- Renamed from linearEastToWestSouth
+    employeesWomen INT,            -- Renamed from linearNorthToSouthEast
+    totalEmployees INT,            -- Renamed from boundaryEast
+    dateOfStarting VARCHAR(100),   -- Renamed from boundaryWest
+    
+    pattaNo VARCHAR(50),
+    pattaType VARCHAR(50),
+    village VARCHAR(100),
+    documentNo VARCHAR(100),
+    profilePicPath VARCHAR(255)
+);
+
+-- 2. DELETED_MEMBERS TABLE (Archive Table)
+-- Synchronized with archiveAndDeleteMember in system.php
+CREATE TABLE deleted_members (
+    deleted_id INT AUTO_INCREMENT PRIMARY KEY,
+    deletedBy VARCHAR(100),
+    deletionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Member data columns (Matches members table exactly)
+    memberNo INT,
+    memberName VARCHAR(255),
+    memberType VARCHAR(50),
+    memberClass VARCHAR(50),
+    admissionDate DATE,
+    siteNo VARCHAR(50),
+    address TEXT,
+    contactNumber1 VARCHAR(100),
+    contactNumber2 VARCHAR(100),
+    lanlineNumber VARCHAR(100),
+    email VARCHAR(150),
+    shareNo VARCHAR(50),
+    noOfShares INT,
+    ShareCapitalAmount DECIMAL(12,2),
+    gender VARCHAR(20),
+    caste VARCHAR(50),
+    aadhaarNumber VARCHAR(20),
+    voterId VARCHAR(50),
+    panNumber VARCHAR(20),
+    admissionFeePaid VARCHAR(10),
+    nomineeName VARCHAR(255),
+    relationship VARCHAR(100),
+    totalAmount DECIMAL(12,2),
+    paidAmount DECIMAL(12,2),
+    remainingAmount VARCHAR(50),
+    modeOfPayment VARCHAR(50),
+    signature VARCHAR(225),
+    areaInSqft DECIMAL(12,2),
+    areaInCents DECIMAL(12,2),
+    nameOfCompany VARCHAR(255),
+    powerAvailable VARCHAR(100),
+    employeesMen INT,
+    employeesWomen INT,
+    totalEmployees INT,
+    dateOfStarting VARCHAR(100),
+    pattaNo VARCHAR(50),
+    pattaType VARCHAR(50),
+    village VARCHAR(100),
+    documentNo VARCHAR(100),
+    profilePicPath VARCHAR(255)
+);
+
+-- 3. UPDATE_REQUESTS TABLE
+-- Matches addRequest and updateRequestStatus logic
+CREATE TABLE update_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    memberNo VARCHAR(50) NOT NULL,
+    memberName VARCHAR(255) NOT NULL,
+    field VARCHAR(100) NOT NULL,
+    currentValue TEXT,
+    newValue TEXT,
+    reason TEXT,
+    requestedBy VARCHAR(100),
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    requestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. USERS TABLE
+-- Used by login case in system.php
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin','user') NOT NULL DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 5. RECEIPTS TABLE
+CREATE TABLE receipts (
+    receipt_no INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    memberNo INT(11) DEFAULT NULL,
+    siteNo VARCHAR(50) DEFAULT NULL,
+    particulars1 TEXT DEFAULT NULL,
+    amount1 DECIMAL(10,2) DEFAULT NULL,
+    particulars2 TEXT DEFAULT NULL,
+    amount2 DECIMAL(10,2) DEFAULT NULL,
+    particulars3 TEXT DEFAULT NULL,
+    amount3 DECIMAL(10,2) DEFAULT NULL,
+    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    receipt_date DATE DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+LOAD DATA INFILE 'D:/Tools/xammp/mysql/data/processed.csv'
+INTO TABLE members
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(
+ memberNo,
+ memberName,
+ memberType,
+ memberClass,
+ admissionDate,
+ siteNo,
+ address,
+ contactNumber1,
+ contactNumber2,
+ lanlineNumber,
+ email,
+ shareNo,
+ noOfShares,
+ ShareCapitalAmount,
+ gender,
+ caste,
+ aadhaarNumber,
+ voterId,
+ panNumber,
+ admissionFeePaid,
+ nomineeName,
+ relationship,
+ totalAmount,
+ paidAmount,
+ remainingAmount,
+ modeOfPayment,
+ signature,
+ areaInSqft,
+ areaInCents,
+ nameOfCompany,
+ powerAvailable,
+ employeesMen,
+ employeesWomen,
+ totalEmployees,
+ dateOfStarting,
+ pattaNo,
+ pattaType,
+ village,
+ documentNo,
+ profilePicPath
+);

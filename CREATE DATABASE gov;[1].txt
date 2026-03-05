@@ -1,0 +1,115 @@
+CREATE DATABASE gov;
+USE gov;
+
+CREATE TABLE members (
+    memberNo INT,
+    memberName VARCHAR(255) NOT NULL,
+    memberType VARCHAR(50) NOT NULL,
+    memberClass VARCHAR(50),
+    admissionDate DATE,
+    siteNo VARCHAR(50),
+    address TEXT,
+    contactNumber1 VARCHAR(100),
+    contactNumber2 VARCHAR(100),
+    lanlineNumber VARCHAR(100),
+    email VARCHAR(150),
+    shareNo VARCHAR(50),
+    noOfShares INT,
+    ShareCapitalAmount DECIMAL(12,2),
+    gender VARCHAR(20),
+    caste VARCHAR(50),
+    aadhaarNumber VARCHAR(20),
+    familyCard VARCHAR(50),
+    voterId VARCHAR(50),
+    panNumber VARCHAR(20),
+    admissionFeePaid VARCHAR(10),
+    nomineeName VARCHAR(255),
+    relationship VARCHAR(100),
+    totalAmount DECIMAL(12,2),
+    paidAmount DECIMAL(12,2),
+    remainingAmount varchar(50) ,
+    modeOfPayment VARCHAR(50),
+    signature VARCHAR(225),
+    -- NEW SITE DETAIL COLUMNS
+    areaInSqft DECIMAL(12,2),
+    areaInCents DECIMAL(12,2),
+    linearNorthToSouthWest DECIMAL(10,2),
+    linearEastToWestNorth DECIMAL(10,2),
+    linearEastToWestSouth DECIMAL(10,2),
+    linearNorthToSouthEast DECIMAL(10,2),
+    boundaryEast VARCHAR(255),
+    boundaryWest VARCHAR(255),
+    boundaryNorth VARCHAR(255),
+    boundarySouth VARCHAR(255),
+    pattaNo VARCHAR(50),
+    pattaType VARCHAR(50),
+    village VARCHAR(100),
+    documentNo VARCHAR(100),
+    -- NEW COLUMN FOR PHOTO PATH
+    profilePicPath VARCHAR(255)
+);
+
+
+CREATE TABLE update_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    memberNo VARCHAR(50) NOT NULL,
+    memberName VARCHAR(255) NOT NULL,
+    field VARCHAR(100) NOT NULL,
+    currentValue TEXT,
+    newValue TEXT,
+    reason TEXT,
+    requestedBy VARCHAR(100),
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    requestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin','user') NOT NULL DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE receipts (
+    receipt_no INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    memberNo INT(11) DEFAULT NULL,
+    siteNo VARCHAR(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    particulars1 TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    amount1 DECIMAL(10,2) DEFAULT NULL,
+    particulars2 TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    amount2 DECIMAL(10,2) DEFAULT NULL,
+    particulars3 TEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    amount3 DECIMAL(10,2) DEFAULT NULL,
+    receipt_date DATE DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE receipts
+ADD total_amount DECIMAL(10,2) NOT NULL DEFAULT 0;
+
+ALTER TABLE members DROP COLUMN familyCard;
+ALTER TABLE deleted_members DROP COLUMN familyCard;
+
+
+LOAD DATA INFILE 'C:/xampp/mysql/data/processed.csv'
+INTO TABLE members
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(memberNo, memberName, memberType, memberClass, admissionDate, siteNo, address, contactNumber1, contactNumber2, lanlineNumber, email, shareNo, noOfShares, ShareCapitalAmount, gender, caste, aadhaarNumber, familyCard, voterId, panNumber, admissionFeePaid, nomineeName, relationship, totalAmount, paidAmount, remainingAmount, modeOfPayment, signature, areaInSqft, areaInCents, linearNorthToSouthWest, linearEastToWestNorth, linearEastToWestSouth, linearNorthToSouthEast, boundaryEast, boundaryWest, boundaryNorth, boundarySouth, pattaNo, pattaType, village, documentNo, profilePicPath);
+
+
+
+
+modified:
+
+
+LOAD DATA INFILE "D:/projectes/xmapp/htdocs/anna_park-master-3/processed.csv"
+INTO TABLE members
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(memberNo, memberName, memberType, memberClass, admissionDate, siteNo, address, contactNumber1, contactNumber2, lanlineNumber, email, shareNo, noOfShares, ShareCapitalAmount, gender, caste, aadhaarNumber, voterId, panNumber, admissionFeePaid, nomineeName, relationship, totalAmount, paidAmount, remainingAmount, modeOfPayment, signature, pattaNo, pattaType, village, documentNo, profilePicPath);

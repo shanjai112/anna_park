@@ -1,0 +1,1334 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacMacFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    color: hsl(210, 80%, 20%);
+    background-color: hsl(210, 100%, 98%);
+}
+
+/* CSS Variables - Design System */
+:root {
+    /* Main Palette: Blues and White */
+    --gov-primary: hsl(210, 80%, 35%);
+    /* Official Deep Blue */
+    --gov-primary-light: hsl(210, 80%, 45%);
+    /* Hover/Active Blue */
+    --gov-primary-very-light: hsl(210, 80%, 95%);
+    /* Light Blue for backgrounds */
+    --gov-secondary: hsl(210, 100%, 92%);
+    /* Soft Light Blue */
+    --gov-secondary-dark: hsl(210, 80%, 75%);
+    /* Slightly Darker Blue */
+    --gov-header: hsl(210, 90%, 20%);
+    /* Dark Blue for headers */
+    --gov-text: hsl(210, 80%, 20%);
+    /* Deep Blue for body text */
+    --gov-border: hsl(210, 60%, 85%);
+    /* Light Blue border */
+    --gov-bg-light: hsl(210, 100%, 98%);
+    /* Very Light Blue for main background */
+    --financial-btn: hsl(210, 70%, 40%);
+    /* Medium Blue */
+    --update-btn: hsl(210, 70%, 60%);
+    /* Lighter Blue */
+    --extra-info-btn: hsl(210, 80%, 30%);
+    /* Dark Blue */
+
+    /* FIX: Site Details button uses the primary blue for color */
+    --site-details-btn: hsl(210, 96%, 19%);
+
+
+    /* Generic variables mapped to new palette */
+    --background: var(--gov-bg-light);
+    --foreground: var(--gov-text);
+    --card: hsl(0, 0%, 100%);
+    --card-foreground: var(--gov-text);
+    --primary: var(--gov-primary);
+    --primary-foreground: hsl(0, 0%, 100%);
+    --secondary: var(--gov-secondary);
+    --secondary-foreground: var(--gov-text);
+    --muted: hsl(210, 100%, 95%);
+    --muted-foreground: hsl(210, 50%, 40%);
+    --accent: var(--gov-primary);
+    --accent-foreground: hsl(0, 0%, 100%);
+    --destructive: hsl(0, 80%, 50%);
+    --destructive-foreground: hsl(0, 0%, 100%);
+    --border: var(--gov-border);
+    --input: hsl(0, 0%, 100%);
+    --ring: var(--gov-primary);
+}
+
+/* Layout Components */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.main-content {
+    padding: 2rem 0;
+}
+
+
+
+/* Login Page Styles */
+.login-page {
+    min-height: 100vh;
+    background-color: var(--gov-bg-light);
+}
+
+/* Enhance Header Styles */
+.gov-header,
+.dashboard-header {
+    font-size: 1.5rem;
+    /* Increase text size */
+    font-weight: 700;
+    /* Stronger emphasis */
+    color: hsl(0, 0%, 100%);
+    /* Darker blue tone for better contrast */
+}
+
+.gov-header .header-subtitle,
+.dashboard-header .role-display {
+    font-size: 1rem;
+    /* Slightly larger subtitle text */
+    color: hsl(210, 80%, 40%);
+    /* Medium blue for clarity */
+}
+
+.gov-header {
+    background-color: var(--gov-header);
+    color: white;
+    padding: 1.5rem 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: nowrap !important;
+}
+
+.gov-header .header-content {
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.shield-icon {
+    font-size: 3rem;
+}
+
+.header-subtitle {
+    color: hsl(210, 70%, 80%);
+    font-size: 0.875rem;
+}
+
+.icon-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.button-divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 0.5rem;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 28rem;
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    text-align: center;
+    padding: 1.5rem 1.5rem 0;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gov-header);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.card-description {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+    background: var(--input);
+    font-size: 0.875rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 2px hsla(210, 80%, 35%, 0.2);
+}
+
+.login-buttons {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Hide the Admin Login button visually but keep it functional */
+#admin-login {
+    background-color: transparent !important;
+    color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    /* ensures it's not clickable */
+    visibility: hidden !important;
+    /* fully hides it from layout */
+}
+
+
+.demo-info {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+}
+
+.demo-info p {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
+/* Button Styles */
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--gov-primary);
+    color: var(--primary-foreground);
+    border-color: var(--gov-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--gov-primary-light);
+}
+
+/* FIX: Ensure the primary button stays opaque on hover/focus (for "Add Profile Picture") */
+.btn-primary:focus,
+.btn-primary:focus-visible {
+    background-color: var(--gov-primary-light);
+    outline: none;
+}
+
+.btn-secondary {
+    background-color: var(--gov-secondary);
+    color: var(--gov-text);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--gov-secondary-dark);
+    color: var(--primary-foreground);
+}
+
+.btn-outline {
+    background-color: beige;
+    border-color: var(--border);
+    color: var(--foreground);
+}
+
+.btn-outline:hover:not(:disabled) {
+    background-color: var(--gov-secondary);
+    color: var(--gov-text);
+}
+
+/* MODIFIED: Action buttons use the new dark blue color for consistency */
+.btn-extra-info {
+    background-color: var(--extra-info-btn);
+    color: white;
+    border-color: var(--extra-info-btn);
+}
+
+
+
+.btn-financial {
+    background-color: var(--financial-btn);
+    color: white;
+    border-color: var(--financial-btn);
+}
+
+
+
+.btn-update {
+    background-color: var(--update-btn);
+    color: white;
+    border-color: var(--update-btn);
+}
+
+
+
+.btn-site-details {
+    background-color: var(--site-details-btn);
+    color: white;
+    border-color: var(--site-details-btn);
+}
+
+
+
+/* Specificity boost for all table buttons (to ensure consistency across the row) */
+.btn-site-details.small,
+.btn-extra-info.small,
+.btn-financial.small,
+.btn-update.small {
+    /* Set basic small button properties here to override any conflicting styles applied to generic button types */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 0.375rem;
+}
+
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-outline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.large {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+}
+
+.small {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+.icon {
+    font-size: 1rem;
+}
+
+/* Dashboard Styles */
+.dashboard-page {
+    min-height: 100vh;
+    background-color: var(--gov-bg-light);
+}
+
+.dashboard-header {
+    background-color: var(--gov-header);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.role-display {
+    color: hsl(210, 70%, 80%);
+    font-size: 0.875rem;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.tab-button {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    background-color: white;
+    color: var(--gov-header);
+}
+
+.tab-button.active {
+    background-color: var(--secondary);
+    color: var(--gov-header);
+    border-color: var(--secondary);
+}
+
+.tab-button.download-btn {
+    background-color: var(--gov-primary-light);
+    border-color: var(--gov-primary-light);
+}
+
+.tab-button.download-btn:hover {
+    background-color: var(--gov-primary);
+    color: white;
+}
+
+.tab-button.logout-btn {
+    background-color: beige;
+    color: var(--gov-text);
+    border-color: #e6e6d1;
+}
+
+.tab-button.logout-btn:hover {
+    background-color: #f0f0e0;
+    color: var(--destructive);
+}
+
+/* (The rest remains the same as original except colors, already handled by variables) */
+/* Search Section */
+.search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* This aligns elements to the bottom, but the form groups must be correctly configured. */
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.search-card {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    /* This is the key fix that aligns all items to the bottom */
+}
+
+.search-form .form-group {
+    margin-bottom: 0;
+}
+
+.flex-2 {
+    flex-grow: 1;
+}
+
+
+
+/* Administrator Button - Styled to match background */
+.login-buttons .btn-secondary {
+    background-color: var(--card);
+    /* Matches white card/background */
+    color: var(--gov-text);
+    border: none;
+    /* Remove border */
+}
+
+/* Remove hover effect only for Administrator button */
+.login-buttons .btn-secondary:hover:not(:disabled) {
+    background-color: var(--card);
+    color: var(--gov-text);
+    border: none;
+}
+
+/* Table Styles */
+.members-table-card,
+.requests-card,
+.financial-summary-card,
+.statistics-summary-card {
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Financial Summary Specific Styles */
+.financial-summary-card {
+    padding: 1.5rem;
+}
+
+.financial-summary-card h3 {
+    color: var(--gov-header);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+/* Statistics Summary Styles */
+.statistics-summary-card {
+    padding: 1.5rem;
+}
+
+.statistics-summary-card h3 {
+    color: var(--gov-header);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--gov-secondary);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-item {
+    background: linear-gradient(135deg, hsl(0, 0%, 100%), var(--gov-bg-light));
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: var(--gov-primary-light);
+}
+
+.stat-item p {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stat-item h4 {
+    font-size: 1.75rem;
+    color: var(--gov-primary);
+    font-weight: 700;
+}
+
+/* Icon Support for Stats */
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 0.75rem;
+    background-color: var(--gov-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gov-primary);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.summary-item {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.summary-item.total-commitment {
+    background-color: var(--gov-secondary);
+}
+
+.summary-item.total-paid {
+    background-color: hsl(142, 70%, 90%);
+}
+
+.summary-item.total-remaining {
+    background-color: hsl(35, 90%, 90%);
+}
+
+/* New Statistics Colors */
+.summary-item.total-aadhaar {
+    background-color: hsl(280, 70%, 90%);
+}
+
+.summary-item.total-company {
+    background-color: hsl(200, 70%, 90%);
+}
+
+.summary-item.total-male-employee {
+    background-color: hsl(220, 70%, 90%);
+}
+
+.summary-item.total-female-employee {
+    background-color: hsl(330, 70%, 90%);
+}
+
+.summary-item.total-power {
+    background-color: hsl(60, 90%, 90%);
+}
+
+.summary-item.total-shares {
+    background-color: hsl(180, 70%, 90%);
+}
+
+.summary-item p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.summary-item.total-commitment p {
+    color: hsl(0, 0%, 95%);
+}
+
+.summary-item.total-paid p {
+    color: hsl(0, 0%, 100%);
+}
+
+.summary-item.total-remaining p {
+    color: hsl(0, 0%, 100%);
+}
+
+/* New Statistics Text Colors */
+.summary-item.total-aadhaar p {
+    color: hsl(280, 70%, 30%);
+}
+
+.summary-item.total-company p {
+    color: hsl(200, 70%, 30%);
+}
+
+.summary-item.total-male-employee p {
+    color: hsl(220, 70%, 30%);
+}
+
+.summary-item.total-female-employee p {
+    color: hsl(330, 70%, 30%);
+}
+
+.summary-item.total-power p {
+    color: hsl(60, 90%, 30%);
+}
+
+.summary-item.total-shares p {
+    color: hsl(180, 70%, 30%);
+}
+
+.summary-item h4 {
+    font-size: 1.5rem;
+    color: var(--gov-header);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: var(--gov-header);
+    border-bottom: 2px solid var(--gov-border);
+    background-color: var(--muted);
+}
+
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--gov-border);
+    color: var(--gov-text);
+}
+
+tr:hover {
+    background-color: var(--muted);
+}
+
+tr:nth-child(even) {
+    background-color: var(--gov-bg-light);
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+}
+
+.badge-default {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.badge-secondary {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+}
+
+.badge-outline {
+    border-color: var(--border);
+    background-color: transparent;
+}
+
+.badge-success {
+    background-color: hsl(142, 70%, 40%);
+    /* Green for success */
+    color: white;
+}
+
+.badge-warning {
+    background-color: hsl(45, 90%, 55%);
+    /* Yellow-orange for warning */
+    color: black;
+}
+
+.badge-danger {
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: var(--card);
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 32rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content.large {
+    max-width: 64rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gov-header);
+}
+
+.modal-body {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1.5rem;
+}
+
+.modal-footer button {
+    flex: 1;
+}
+
+.modal-footer button[type="submit"],
+.modal-footer .btn-primary {
+    flex: 2;
+}
+
+.close-btn,
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--muted-foreground);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-btn:hover,
+.back-btn:hover {
+    color: var(--foreground);
+}
+
+.cancel-btn {
+    flex: 1;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Current Value Display */
+.current-value {
+    padding: 1rem;
+    background-color: var(--muted);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.current-value .label {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+/* Request Item Styles */
+.request-item {
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: white;
+    margin-bottom: 1rem;
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.request-member-info h4 {
+    font-weight: 600;
+    color: var(--gov-header);
+}
+
+.request-member-info p {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
+.request-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.value-box {
+    background: var(--muted);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+.value-box.new {
+    background-color: var(--gov-primary-very-light);
+    color: var(--gov-primary);
+    font-weight: 500;
+}
+
+.value-label {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.request-reason {
+    margin-bottom: 1rem;
+}
+
+.request-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.request-meta {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+}
+
+.request-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Member Details - New Photo & Layout Styles */
+
+/* This is the container for the entire content inside the modal body */
+.member-details-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    /* Photo/Summary column (1fr) | Info grid (2fr) */
+    gap: 1.5rem;
+}
+
+/* Summary and Photo Section (Left Column) */
+.member-summary {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--gov-bg-light), white);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    /* NEW: Use Flexbox within summary to position avatar/text and photo side-by-side (if needed) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    /* Important: remove vertical margin */
+}
+
+.member-info-column {
+    /* Holds Avatar, Name, Badges, and Delete Button */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-basis: 50%;
+    /* Take half the space within member-summary */
+}
+
+/* Photo Upload Container (Right side of the header area) */
+.photo-upload-container {
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-basis: 45%;
+    /* Take 45% of the space within member-summary */
+}
+
+.photo-upload-container h3 {
+    font-size: 1rem;
+    color: var(--gov-header);
+    margin-bottom: 0.5rem;
+}
+
+/* MODIFIED: Increased size for photo and placeholder */
+.member-photo-display {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--gov-primary);
+    margin-bottom: 0.5rem;
+}
+
+.profile-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: var(--gov-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.profile-placeholder svg {
+    width: 60px;
+    height: 60px;
+}
+
+/* End Photo Styles */
+
+
+.member-avatar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Remove vertical margin to keep layout tight */
+    margin-bottom: 0;
+}
+
+.avatar-circle {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--gov-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.member-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gov-header);
+}
+
+.member-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Info Grid Section (Right Column) */
+.info-grid-container {
+    padding-top: 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-card {
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.info-card h3 {
+    font-size: 1.125rem;
+    color: var(--gov-header);
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid hsl(210, 20%, 90%);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--gov-text);
+}
+
+.info-value {
+    font-weight: 600;
+    color: var(--gov-header);
+}
+
+/* Toast Styles */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toast {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    max-width: 20rem;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast.success {
+    border-left: 4px solid hsl(142, 70%, 40%);
+}
+
+.toast.error {
+    border-left: 4px solid var(--destructive);
+}
+
+.toast-title {
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.25rem;
+}
+
+.toast-message {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .modal-content.large {
+        max-width: 90vw;
+    }
+
+    /* Stack the summary/photo and the info grid vertically */
+    .member-details-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ensure the summary row stacks its elements horizontally if possible */
+    .member-summary {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .member-info-column,
+    .photo-upload-container {
+        flex-basis: 100%;
+        /* Full width for stacked look */
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .search-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    .header-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .request-values {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .member-avatar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .table-container {
+        font-size: 0.75rem;
+    }
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-3 {
+    flex: 3;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+/* ADD THIS TO YOUR STYLESHEET */
+
+.financial-summary-card {
+    background: var(--card);
+    border: 1px solid var(--gov-border);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.financial-summary-card h3 {
+    font-size: 1.25rem;
+    color: var(--gov-header);
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--gov-border);
+    padding-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.summary-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.summary-item {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+.summary-item p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.summary-item h4 {
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+/* Color Coding for Financial Clarity */
+.summary-item.total-commitment {
+    background-color: hsl(194, 93%, 41%);
+    /* Deep Blue */
+}
+
+.summary-item.total-paid {
+    background-color: hsl(142, 76%, 36%);
+    /* Success Green */
+}
+
+.summary-item.total-remaining {
+    background-color: hsl(35, 80%, 50%);
+    /* Warning Orange */
+}
+
+@media (max-width: 768px) {
+    .summary-grid {
+        flex-direction: column;
+    }
+}

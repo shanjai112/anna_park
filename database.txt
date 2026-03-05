@@ -140,7 +140,7 @@ CREATE TABLE receipts (
     receipt_date DATE DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+UPDATE members SET totalEmployees = employeesMen + employeesWomen;
 
 LOAD DATA INFILE 'D:/Tools/xammp/mysql/data/processed.csv'
 INTO TABLE members
